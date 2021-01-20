@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fenghainan.springboot.dao.SearchMapper">
+    <resultMap id="BaseResultMap" type="com.fenghainan.springboot.entry.Img">
+        <id column="img_key" jdbcType="VARCHAR" property="imgKey" />
+        <result column="img_author" jdbcType="VARCHAR" property="imgAuthor" />
+        <result column="img_date" jdbcType="VARCHAR" property="imgDate" />
+        <result column="img_id" jdbcType="VARCHAR" property="imgId" />
+        <result column="img_width" jdbcType="INTEGER" property="imgWidth" />
+        <result column="img_height" jdbcType="INTEGER" property="imgHeight" />
+        <result column="img_name" jdbcType="VARCHAR" property="imgName" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    img_key, img_author, img_date, img_id, img_width, img_height, img_name
+    </sql>
+    <select id="selectListByKeywords" parameterType="Img" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from img
+        <where>
+            <if test="imgName != null and imgName != ''"> and img_name like concat('%',#{imgName},'%')  or img_tags like concat('%',#{imgName},'%')</if>
+            <if test="imgAuthor != null  and imgAuthor != ''"> and img_author like concat('%',#{imgName},'%')</if>
+            <if test="tags != null and tags != ''"> and img_tags like concat('%',#{imgName},'%')</if>
+        </where>
+    </select>
+
+
+</mapper>

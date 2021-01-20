@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fenghainan.springboot.dao.TagMapper">
+  <resultMap id="BaseResultMap" type="com.fenghainan.springboot.entry.Tag">
+    <id column="tags_id" jdbcType="VARCHAR" property="tagsId" />
+    <result column="tags_name" jdbcType="VARCHAR" property="tagsName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tags_id, tags_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tags
+    where tags_id = #{tagsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tags
+    where tags_id = #{tagsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fenghainan.springboot.entry.Tag">
+    insert into tags (tags_id, tags_name)
+    values (#{tagsId,jdbcType=VARCHAR}, #{tagsName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fenghainan.springboot.entry.Tag">
+    insert into tags
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tagsId != null">
+        tags_id,
+      </if>
+      <if test="tagsName != null">
+        tags_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tagsId != null">
+        #{tagsId,jdbcType=VARCHAR},
+      </if>
+      <if test="tagsName != null">
+        #{tagsName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fenghainan.springboot.entry.Tag">
+    update tags
+    <set>
+      <if test="tagsName != null">
+        tags_name = #{tagsName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tags_id = #{tagsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fenghainan.springboot.entry.Tag">
+    update tags
+    set tags_name = #{tagsName,jdbcType=VARCHAR}
+    where tags_id = #{tagsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

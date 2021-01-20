@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+</head>
+<body>
+<div id="app">
+  <p>{{message}}</p>
+  <!--<img v-bind:src="url" alt="">-->
+  <!--<img :src="url1" alt="">-->
+  <!--<img :src="url1" >-->
+  <button v-on:click="created">111</button>
+  
+  
+  <!--<img v-for="imgs in urls" :src="imgs">-->
+  
+  <div class="container">
+    <div class="row">
+      <div v-for="imgs in urls" class="col-md-3">
+        <img :src="imgs" class="img-thumbnail img-responsive">
+        <div class="clearfix visible-md-block"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../js/vue.js"></script>
+<script>
+  
+  const app = new Vue({
+    //el参数确定了Vue对象挂载到哪个元素上
+    el: "#app",
+    isfirst: true,
+    issecond: false,
+    data: {
+      message: "Hello,world!!!",
+      name: "FHN",
+      url: "../img/85266320_p0.jpg",
+      url1: "../img/85266320_p0.jpg",
+      url2: "../img/84614239_p0.jpg",
+      // urls: ["../img/85266320_p0.jpg", "../img/84614239_p0.jpg", "../img/84800092_p0.jpg", "../img/85415017_p0.png", "../img/85504761_p0.jpg", "../img/84869913_p0.jpg", "../img/85132182_p0.jpg","../img/85225777_p0.png","../img/85258208_p0.jpg","../img/85265713_p0.png"]
+      urls: []
+    },
+    
+    methods: {
+      created: function(){
+        var url="http://localhost:8080/hello";
+        $.ajax({
+          url:"http://localhost:8080/hello",
+          dataType:"json",
+          type:"POST",
+          success: function(d) {
+            $.each(d,function (item,i) {
+              app.urls.push(i.imgKey)
+
+            })
+            console.log(d);
+          }
+      })},
+      change: function () {
+        this.url1 = this.url2
+      }
+    }
+  });
+
+</script>
+</body>
+</html>

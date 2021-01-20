@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/imgdb?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  devtools:
+    remote:
+      restart:
+        enabled: true
+    restart:
+      additional-paths: src/main/java
+  mail:
+    host: smtp.qq.com #发送邮件服务器
+    username: 961259010@qq.com #发送邮件的邮箱地址
+    password:  uzsymulwxtmjbfge      #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
+    properties.mail.smtp.port: 465 #端口号465或587
+    from: 961259010@qq.com # 发送邮件的地址，和上面username一致
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    default-encoding: utf-8
+
+
+mybatis:
+  mapper-locations: classpath:mybatis/*Mapper.xml
+  type-aliases-package: com.fenghainan.springboot.entry
+  log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+  mapUnderscoreToCamelCase: true
+
+logging:
+  config: classpath:log4j.xml
+  level:
+    com.fenghainan.springboot : debug
